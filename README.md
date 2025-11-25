@@ -79,7 +79,6 @@
 | <a name="input_kms_key_description"></a> [kms\_key\_description](#input\_kms\_key\_description) | Description for the KMS key | `string` | `"KMS key for ECS service encryption"` | no |
 | <a name="input_kms_key_alias_suffix"></a> [kms\_key\_alias\_suffix](#input\_kms\_key\_alias\_suffix) | Suffix for the KMS key alias name | `string` | `"-ecs-encryption"` | no |
 | <a name="input_kms_key_usage"></a> [kms\_key\_usage](#input\_kms\_key\_usage) | Intended use of the key | `string` | `"ENCRYPT_DECRYPT"` | no |
-| <a name="input_kms_key_spec"></a> [kms\_key\_spec](#input\_kms\_key\_spec) | Specification of the key | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | <a name="input_kms_key_is_enabled"></a> [kms\_key\_is\_enabled](#input\_kms\_key\_is\_enabled) | Whether the key is enabled | `bool` | `true` | no |
 | <a name="input_kms_key_enable_key_rotation"></a> [kms\_key\_enable\_key\_rotation](#input\_kms\_key\_enable\_key\_rotation) | Whether to enable key rotation | `bool` | `true` | no |
 

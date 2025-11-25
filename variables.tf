@@ -350,12 +350,6 @@ variable "kms_key_usage" {
   default     = "ENCRYPT_DECRYPT"
 }
 
-variable "kms_key_spec" {
-  description = "Specification of the key"
-  type        = string
-  default     = "SYMMETRIC_DEFAULT"
-}
-
 variable "kms_key_is_enabled" {
   description = "Whether the key is enabled"
   type        = bool
