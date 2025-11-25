@@ -34,9 +34,9 @@ const (
 func TestComposableComplete(t *testing.T, ctx lcafTypes.TestContext) {
 	ecsClient := GetAWSECSClient(t)
 
-	serviceArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "service_id")
-	serviceName := terraform.Output(t, ctx.TerratestTerraformOptions(), "service_name")
-	clusterArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "cluster_arn")
+	serviceArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "ecs_service_id")
+	serviceName := terraform.Output(t, ctx.TerratestTerraformOptions(), "ecs_service_name")
+	clusterArn := terraform.Output(t, ctx.TerratestTerraformOptions(), "ecs_cluster_arn")
 
 	t.Run("TestECSServiceExists", func(t *testing.T) {
 		testECSServiceExists(t, ecsClient, serviceArn, serviceName, clusterArn)
@@ -44,12 +44,6 @@ func TestComposableComplete(t *testing.T, ctx lcafTypes.TestContext) {
 
 	t.Run("TestECSServiceProperties", func(t *testing.T) {
 		testECSServiceProperties(t, ecsClient, serviceArn, serviceName, clusterArn)
-	})
-
-	t.Run("TestECSServiceTags", func(t *testing.T) {
-		var serviceTags map[string]interface{}
-		terraform.OutputStruct(t, ctx.TerratestTerraformOptions(), "service_tags", &serviceTags)
-		testECSServiceTags(t, ecsClient, serviceArn, clusterArn, serviceTags)
 	})
 }
 

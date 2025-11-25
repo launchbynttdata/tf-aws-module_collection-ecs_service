@@ -1,6 +1,6 @@
 # Test variables for the simple ECS service example
 
-region = "us-west-2"
+region = "us-east-2"
 
 cluster_name = "simple-ecs-cluster"
 

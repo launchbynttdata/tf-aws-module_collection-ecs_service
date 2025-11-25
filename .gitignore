@@ -54,6 +54,7 @@ provider.tf
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+.terraform
 
 # Files from common modules
 azure_env.sh

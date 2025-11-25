@@ -22,7 +22,7 @@ variable "name" {
 variable "region" {
   description = "AWS region for the provider"
   type        = string
-  default     = "us-west-2"
+  default     = "us-east-2"
 }
 
 variable "cluster" {

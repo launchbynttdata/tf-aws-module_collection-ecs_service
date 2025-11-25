@@ -152,7 +152,22 @@ output "ecs_encryption_key_arn" {
   value       = var.enable_kms_encryption ? try(module.ecs_encryption_key[0].key_arn, null) : null
 }
 
-output "ecs_encryption_key_id" {
-  description = "ID of the KMS key created for ECS encryption (if enabled)"
-  value       = var.enable_kms_encryption ? module.ecs_encryption_key[0].key_id : null
+output "service_id" {
+  description = "The ID of the ECS service"
+  value       = module.ecs_service.id
+}
+
+output "service_name" {
+  description = "The name of the ECS service"
+  value       = module.ecs_service.name
+}
+
+output "cluster_arn" {
+  description = "The cluster the ECS service is associated with"
+  value       = module.ecs_service.cluster
+}
+
+output "service_tags" {
+  description = "A map of tags assigned to the ECS service"
+  value       = module.ecs_service.tags
 }
