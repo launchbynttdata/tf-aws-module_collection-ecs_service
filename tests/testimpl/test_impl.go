@@ -93,34 +93,6 @@ func testECSServiceProperties(t *testing.T, ecsClient *ecs.Client, serviceArn, s
 	assert.NotNil(t, service.TaskDefinition, "Task definition should not be nil")
 }
 
-func testECSServiceTags(t *testing.T, ecsClient *ecs.Client, serviceArn, clusterArn string, expectedTags map[string]interface{}) {
-	if len(expectedTags) == 0 {
-		return
-	}
-
-	serviceOutput, err := ecsClient.DescribeServices(context.TODO(), &ecs.DescribeServicesInput{
-		Services: []string{serviceArn},
-		Cluster:  aws.String(clusterArn),
-		Include:  []ecstypes.ServiceField{ecstypes.ServiceFieldTags},
-	})
-	require.NoError(t, err, failedToGetServiceTagsMsg)
-	require.NotNil(t, serviceOutput.Services, "Services should not be nil")
-	require.Greater(t, len(serviceOutput.Services), 0, "At least one service should be returned")
-
-	// Convert AWS tags to map for comparison
-	actualTags := make(map[string]string)
-	for _, tag := range serviceOutput.Services[0].Tags {
-		actualTags[*tag.Key] = *tag.Value
-	}
-
-	// Verify expected tags exist
-	for key, value := range expectedTags {
-		if valueStr, ok := value.(string); ok {
-			assert.Equal(t, valueStr, actualTags[key], "Tag %s should have expected value", key)
-		}
-	}
-}
-
 func GetAWSECSClient(t *testing.T) *ecs.Client {
 	awsECSClient := ecs.NewFromConfig(GetAWSConfig(t))
 	return awsECSClient

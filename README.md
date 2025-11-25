@@ -5,14 +5,14 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
 
 ## Modules
 
@@ -37,7 +37,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Name for the ECS service | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | AWS region for the provider | `string` | `"us-west-2"` | no |
+| <a name="input_region"></a> [region](#input\_region) | AWS region for the provider | `string` | `"us-east-2"` | no |
 | <a name="input_cluster"></a> [cluster](#input\_cluster) | ARN of the ECS cluster where this service will be placed | `string` | `null` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the ECS cluster where this service will be placed (used if cluster ARN is not provided) | `string` | `null` | no |
 | <a name="input_task_definition"></a> [task\_definition](#input\_task\_definition) | The family and revision (family:revision) or full ARN of the task definition to run in your service | `string` | `null` | no |
@@ -115,5 +115,8 @@
 | <a name="output_service_connect_log_group_name"></a> [service\_connect\_log\_group\_name](#output\_service\_connect\_log\_group\_name) | n/a |
 | <a name="output_service_connect_log_group_arn"></a> [service\_connect\_log\_group\_arn](#output\_service\_connect\_log\_group\_arn) | n/a |
 | <a name="output_ecs_encryption_key_arn"></a> [ecs\_encryption\_key\_arn](#output\_ecs\_encryption\_key\_arn) | ARN of the KMS key created for ECS encryption (if enabled) |
-| <a name="output_ecs_encryption_key_id"></a> [ecs\_encryption\_key\_id](#output\_ecs\_encryption\_key\_id) | ID of the KMS key created for ECS encryption (if enabled) |
+| <a name="output_service_id"></a> [service\_id](#output\_service\_id) | The ID of the ECS service |
+| <a name="output_service_name"></a> [service\_name](#output\_service\_name) | The name of the ECS service |
+| <a name="output_cluster_arn"></a> [cluster\_arn](#output\_cluster\_arn) | The cluster the ECS service is associated with |
+| <a name="output_service_tags"></a> [service\_tags](#output\_service\_tags) | A map of tags assigned to the ECS service |
 <!-- END_TF_DOCS -->
