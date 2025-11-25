@@ -25,7 +25,7 @@ logical_product_family = "demo"
 
 logical_product_service = "ecs"
 
-class_env = "dev"
+class_env = "terratest"
 
 cloud_resource_type = "svc"
 
