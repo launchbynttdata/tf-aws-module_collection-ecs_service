@@ -100,11 +100,28 @@ module "ecs_service_security_group" {
   tags = var.tags
 }
 
+# Resource name for the service
+module "service_name" {
+  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
+  version = "~> 2.2"
+
+  logical_product_family  = var.logical_product_family
+  logical_product_service = var.logical_product_service
+  region                  = var.region
+  class_env               = var.class_env
+  cloud_resource_type     = var.cloud_resource_type
+  instance_env            = var.instance_env
+  instance_resource       = var.instance_resource
+  maximum_length          = var.maximum_length
+  separator               = var.separator
+  use_azure_region_abbr   = var.use_azure_region_abbr
+}
+
 # ECS Service using the collection module
 module "ecs_service" {
   source = "../.."
 
-  name            = var.service_name
+  name            = module.service_name.standard
   cluster         = module.ecs_cluster.arn
   task_definition = module.ecs_task_definition.arn
 

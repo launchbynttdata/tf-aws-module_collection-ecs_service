@@ -20,3 +20,21 @@ tags = {
 }
 
 configuration = {}
+
+logical_product_family = "demo"
+
+logical_product_service = "ecs"
+
+class_env = "dev"
+
+cloud_resource_type = "svc"
+
+instance_env = 0
+
+instance_resource = 0
+
+maximum_length = 60
+
+separator = "-"
+
+use_azure_region_abbr = false

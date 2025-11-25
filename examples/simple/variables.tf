@@ -82,3 +82,57 @@ variable "configuration" {
   })
   default = {}
 }
+
+variable "logical_product_family" {
+  description = "Logical product family for resource naming"
+  type        = string
+  default     = "demo"
+}
+
+variable "logical_product_service" {
+  description = "Logical product service for resource naming"
+  type        = string
+  default     = "ecs"
+}
+
+variable "class_env" {
+  description = "Class environment for resource naming"
+  type        = string
+  default     = "dev"
+}
+
+variable "cloud_resource_type" {
+  description = "Cloud resource type for resource naming"
+  type        = string
+  default     = "svc"
+}
+
+variable "instance_env" {
+  description = "Instance environment for resource naming"
+  type        = number
+  default     = 0
+}
+
+variable "instance_resource" {
+  description = "Instance resource for resource naming"
+  type        = number
+  default     = 0
+}
+
+variable "maximum_length" {
+  description = "Maximum length for resource naming"
+  type        = number
+  default     = 60
+}
+
+variable "separator" {
+  description = "Separator for resource naming"
+  type        = string
+  default     = "-"
+}
+
+variable "use_azure_region_abbr" {
+  description = "Whether to use Azure region abbreviation"
+  type        = bool
+  default     = false
+}
