@@ -46,7 +46,13 @@ locals {
 
   name_configs = { for k, v in local.resource_specific : k => merge(local.common_name_params, v) }
 
-  task_family_name = module.resource_names["task_definition"].standard
+  task_family_name = module.resource_names["task_definition"].minimal_random_suffix
+
+  cluster_name        = module.resource_names["cluster"].minimal_random_suffix
+  execution_role_name = module.resource_names["execution_role"].minimal_random_suffix
+  task_role_name      = module.resource_names["task_role"].minimal_random_suffix
+  security_group_name = module.resource_names["security_group"].minimal_random_suffix
+  service_name        = module.resource_names["service"].minimal_random_suffix
 
   container_definitions = [
     {

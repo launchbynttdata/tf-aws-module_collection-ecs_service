@@ -15,7 +15,7 @@ module "ecs_cluster" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/ecs_cluster/aws"
   version = "~> 1.0"
 
-  name = module.resource_names["cluster"].standard
+  name = local.cluster_name
 
   configuration = var.configuration
 
@@ -27,7 +27,7 @@ module "ecs_execution_role" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws"
   version = "~> 0.1"
 
-  name = module.resource_names["execution_role"].standard
+  name = local.execution_role_name
 
   assume_role_policy = [{
     actions = ["sts:AssumeRole"]
@@ -57,7 +57,7 @@ module "ecs_task_role" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws"
   version = "~> 0.1"
 
-  name = module.resource_names["task_role"].standard
+  name = local.task_role_name
 
   assume_role_policy = [{
     actions = ["sts:AssumeRole"]
@@ -112,7 +112,7 @@ module "ecs_service_security_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/security_group/aws"
   version = "~> 0.2"
 
-  name   = module.resource_names["security_group"].standard
+  name   = local.security_group_name
   vpc_id = data.aws_vpc.default.id
 
   tags = var.tags
@@ -121,7 +121,7 @@ module "ecs_service_security_group" {
 module "ecs_service" {
   source = "../.."
 
-  name            = module.resource_names["service"].standard
+  name            = local.service_name
   cluster         = module.ecs_cluster.arn
   task_definition = module.ecs_task_definition.arn
 
