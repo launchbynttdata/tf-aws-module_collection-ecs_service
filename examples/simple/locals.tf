@@ -11,6 +11,43 @@
 // limitations under the License.
 
 locals {
+  common_name_params = {
+    logical_product_family  = var.logical_product_family
+    logical_product_service = var.logical_product_service
+    region                  = var.region
+    class_env               = var.class_env
+    cloud_resource_type     = var.cloud_resource_type
+    instance_env            = var.instance_env
+    instance_resource       = var.instance_resource
+    maximum_length          = var.maximum_length
+    separator               = var.separator
+  }
+
+  resource_specific = {
+    cluster = {
+      cloud_resource_type = "cluster"
+    }
+    service = {
+      cloud_resource_type = "service"
+    }
+    execution_role = {
+      cloud_resource_type = "executionrole"
+    }
+    task_role = {
+      cloud_resource_type = "taskrole"
+    }
+    task_definition = {
+      cloud_resource_type = "taskdefinition"
+    }
+    security_group = {
+      cloud_resource_type = "sg"
+    }
+  }
+
+  name_configs = { for k, v in local.resource_specific : k => merge(local.common_name_params, v) }
+
+  task_family_name = module.resource_names["task_definition"].standard
+
   container_definitions = [
     {
       name  = "app"
@@ -24,7 +61,7 @@ locals {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = "/ecs/${var.task_family}"
+          "awslogs-group"         = "/ecs/${local.task_family_name}"
           "awslogs-region"        = var.region
           "awslogs-stream-prefix" = "ecs"
         }

@@ -16,40 +16,10 @@ variable "region" {
   default     = "us-east-2"
 }
 
-variable "cluster_name" {
-  description = "Name of the ECS cluster"
-  type        = string
-  default     = "simple-ecs-cluster"
-}
-
-variable "execution_role_name" {
-  description = "Name of the ECS execution role"
-  type        = string
-  default     = "simple-ecs-execution-role"
-}
-
-variable "task_family" {
-  description = "Family name for the task definition"
-  type        = string
-  default     = "simple-task"
-}
-
-variable "service_name" {
-  description = "Name of the ECS service"
-  type        = string
-  default     = "simple-ecs-service"
-}
-
 variable "desired_count" {
   description = "Desired number of tasks"
   type        = number
   default     = 1
-}
-
-variable "task_role_name" {
-  description = "Name of the ECS task role"
-  type        = string
-  default     = "simple-ecs-task-role"
 }
 
 variable "tags" {
@@ -131,8 +101,3 @@ variable "separator" {
   default     = "-"
 }
 
-variable "use_azure_region_abbr" {
-  description = "Whether to use Azure region abbreviation"
-  type        = bool
-  default     = false
-}

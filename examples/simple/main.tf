@@ -15,7 +15,7 @@ module "ecs_cluster" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/ecs_cluster/aws"
   version = "~> 1.0"
 
-  name = var.cluster_name
+  name = module.resource_names["cluster"].standard
 
   configuration = var.configuration
 
@@ -27,7 +27,7 @@ module "ecs_execution_role" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws"
   version = "~> 0.1"
 
-  name = var.execution_role_name
+  name = module.resource_names["execution_role"].standard
 
   assume_role_policy = [{
     actions = ["sts:AssumeRole"]
@@ -57,7 +57,7 @@ module "ecs_task_role" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws"
   version = "~> 0.1"
 
-  name = var.task_role_name
+  name = module.resource_names["task_role"].standard
 
   assume_role_policy = [{
     actions = ["sts:AssumeRole"]
@@ -71,12 +71,30 @@ module "ecs_task_role" {
   tags = var.tags
 }
 
+# Resource name for the service
+module "resource_names" {
+  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
+  version = "~> 2.2"
+
+  for_each = local.name_configs
+
+  logical_product_family  = each.value.logical_product_family
+  logical_product_service = each.value.logical_product_service
+  region                  = each.value.region
+  class_env               = each.value.class_env
+  cloud_resource_type     = each.value.cloud_resource_type
+  instance_env            = each.value.instance_env
+  instance_resource       = each.value.instance_resource
+  maximum_length          = each.value.maximum_length
+  separator               = each.value.separator
+}
+
 # ECS Task Definition
 module "ecs_task_definition" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/ecs_task/aws"
   version = "~> 0.1"
 
-  family                   = var.task_family
+  family                   = local.task_family_name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "256"
@@ -94,34 +112,16 @@ module "ecs_service_security_group" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/security_group/aws"
   version = "~> 0.2"
 
-  name   = var.service_name
+  name   = module.resource_names["security_group"].standard
   vpc_id = data.aws_vpc.default.id
 
   tags = var.tags
 }
 
-# Resource name for the service
-module "service_name" {
-  source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
-  version = "~> 2.2"
-
-  logical_product_family  = var.logical_product_family
-  logical_product_service = var.logical_product_service
-  region                  = var.region
-  class_env               = var.class_env
-  cloud_resource_type     = var.cloud_resource_type
-  instance_env            = var.instance_env
-  instance_resource       = var.instance_resource
-  maximum_length          = var.maximum_length
-  separator               = var.separator
-  use_azure_region_abbr   = var.use_azure_region_abbr
-}
-
-# ECS Service using the collection module
 module "ecs_service" {
   source = "../.."
 
-  name            = module.service_name.standard
+  name            = module.resource_names["service"].standard
   cluster         = module.ecs_cluster.arn
   task_definition = module.ecs_task_definition.arn
 
@@ -130,7 +130,7 @@ module "ecs_service" {
 
   network_configuration = {
     subnets          = data.aws_subnets.default.ids
-    security_groups  = [module.ecs_service_security_group.id]
+    security_groups  = []
     assign_public_ip = true
   }
 
