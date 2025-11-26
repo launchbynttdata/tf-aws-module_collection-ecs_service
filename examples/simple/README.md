@@ -69,9 +69,9 @@ The example includes KMS encryption by default as per the collection module's co
 | <a name="module_ecs_execution_role"></a> [ecs\_execution\_role](#module\_ecs\_execution\_role) | terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws | ~> 0.1 |
 | <a name="module_ecs_execution_role_policy_attachment"></a> [ecs\_execution\_role\_policy\_attachment](#module\_ecs\_execution\_role\_policy\_attachment) | terraform.registry.launch.nttdata.com/module_primitive/iam_role_policy_attachment/aws | ~> 0.1 |
 | <a name="module_ecs_task_role"></a> [ecs\_task\_role](#module\_ecs\_task\_role) | terraform.registry.launch.nttdata.com/module_primitive/iam_role/aws | ~> 0.1 |
+| <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.2 |
 | <a name="module_ecs_task_definition"></a> [ecs\_task\_definition](#module\_ecs\_task\_definition) | terraform.registry.launch.nttdata.com/module_primitive/ecs_task/aws | ~> 0.1 |
 | <a name="module_ecs_service_security_group"></a> [ecs\_service\_security\_group](#module\_ecs\_service\_security\_group) | terraform.registry.launch.nttdata.com/module_primitive/security_group/aws | ~> 0.2 |
-| <a name="module_service_name"></a> [service\_name](#module\_service\_name) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.2 |
 | <a name="module_ecs_service"></a> [ecs\_service](#module\_ecs\_service) | ../.. | n/a |
 
 ## Resources
@@ -86,12 +86,7 @@ The example includes KMS encryption by default as per the collection module's co
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | `"us-east-2"` | no |
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the ECS cluster | `string` | `"simple-ecs-cluster"` | no |
-| <a name="input_execution_role_name"></a> [execution\_role\_name](#input\_execution\_role\_name) | Name of the ECS execution role | `string` | `"simple-ecs-execution-role"` | no |
-| <a name="input_task_family"></a> [task\_family](#input\_task\_family) | Family name for the task definition | `string` | `"simple-task"` | no |
-| <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Name of the ECS service | `string` | `"simple-ecs-service"` | no |
 | <a name="input_desired_count"></a> [desired\_count](#input\_desired\_count) | Desired number of tasks | `number` | `1` | no |
-| <a name="input_task_role_name"></a> [task\_role\_name](#input\_task\_role\_name) | Name of the ECS task role | `string` | `"simple-ecs-task-role"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to resources | `map(string)` | <pre>{<br/>  "Environment": "example",<br/>  "Example": "simple"<br/>}</pre> | no |
 | <a name="input_configuration"></a> [configuration](#input\_configuration) | Execute command configuration for the cluster | <pre>object({<br/>    execute_command_configuration = optional(object({<br/>      kms_key_id = optional(string)<br/>      logging    = optional(string, "DEFAULT")<br/>      log_configuration = optional(object({<br/>        cloud_watch_encryption_enabled = optional(bool, false)<br/>        cloud_watch_log_group_name     = optional(string)<br/>        s3_bucket_name                 = optional(string)<br/>        s3_bucket_encryption_enabled   = optional(bool, false)<br/>        s3_key_prefix                  = optional(string)<br/>      }))<br/>    }))<br/>    managed_storage_configuration = optional(object({<br/>      fargate_ephemeral_storage_kms_key_id = optional(string)<br/>      kms_key_id                           = string<br/>    }))<br/>  })</pre> | `{}` | no |
 | <a name="input_logical_product_family"></a> [logical\_product\_family](#input\_logical\_product\_family) | Logical product family for resource naming | `string` | `"demo"` | no |
@@ -102,7 +97,6 @@ The example includes KMS encryption by default as per the collection module's co
 | <a name="input_instance_resource"></a> [instance\_resource](#input\_instance\_resource) | Instance resource for resource naming | `number` | `0` | no |
 | <a name="input_maximum_length"></a> [maximum\_length](#input\_maximum\_length) | Maximum length for resource naming | `number` | `60` | no |
 | <a name="input_separator"></a> [separator](#input\_separator) | Separator for resource naming | `string` | `"-"` | no |
-| <a name="input_use_azure_region_abbr"></a> [use\_azure\_region\_abbr](#input\_use\_azure\_region\_abbr) | Whether to use Azure region abbreviation | `bool` | `false` | no |
 
 ## Outputs
 

@@ -1,4 +1,4 @@
-# tf-aws-module_primitive-ecs_service
+# tf-aws-module_collection-ecs_service
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

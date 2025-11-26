@@ -100,4 +100,3 @@ variable "separator" {
   type        = string
   default     = "-"
 }
-
